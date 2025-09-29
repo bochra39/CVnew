@@ -1,10 +1,10 @@
         :root {
-  --primary-color: #7b2cbf;     /* Deep royal purple */
-  --secondary-color: #9d4edd;   /* Softer lavender purple */
+  --primary-color:  #754f4a;     /* Deep royal purple */
+  --secondary-color:  #99726d; ;   /* Softer lavender purple */
   --accent-color: #ff4d6d;      /* Bright pink-red accent */
-  --light-color: #f8e1e5;       /* Light pastel pink/purple */
-  --dark-color: #2d033b;        /* Very dark purple for depth */
-  --text-color: #3a2c3f;        /* Neutral dark plum for readability */
+  --light-color:  #f9f9f9; /* Light pastel pink/purple */
+  --dark-color: #033b24;        /* Very dark purple for depth */
+  --text-color: #2c3f35;        /* Neutral dark plum for readability */
   --heading-font: 'Montserrat', sans-serif;
   --body-font: 'Open Sans', sans-serif;
 }
@@ -148,7 +148,7 @@
             height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9f0fa 100%);
+            background: linear-gradient(135deg, #f7e8e5 0%, #dce3ee 100%);
             margin-top: 80px;
             position: relative;
             overflow: hidden;
@@ -373,9 +373,9 @@
         
         /* Experience Section */
         .experience {
-            background-color: var(--light-color);
+   background: linear-gradient(135deg, #ffeef6 0%, #e9f0fa 100%);
         }
-        
+                
         .timeline {
             position: relative;
             max-width: 800px;
@@ -483,7 +483,7 @@
         }
         
         .education-card-header {
-            background: linear-gradient(285deg, #7e266f 0%, #7b2cbf 50%); 
+            background: linear-gradient(285deg, #754f4a 0%,   #99726d 50%); 
            padding: 20px;
             color: white;
         }
