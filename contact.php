@@ -32,7 +32,7 @@ if (!$email) {
 }
 
 // Email configuration
-$to = 'a.nettour97@gmail.com';
+$to = 'netbocra@gmail.com';
 $subject = 'Website User: ' . $name;
 $headers = [
     'From: ' . $email,
