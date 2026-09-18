@@ -6,6 +6,116 @@
     <title>Bochra Nettour | CV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+
+    <style>
+      /* Additions for updated portfolio content — keeps the existing visual system intact */
+      .project-github-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .project-github-link:hover { text-decoration: underline; }
+
+      .featured-carousel { position: relative; }
+      .featured-track {
+        display: flex;
+        gap: 24px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 4px 2px 12px;
+      }
+      .featured-track::-webkit-scrollbar { display: none; }
+      .featured-track .publication-card {
+        flex: 0 0 calc((100% - 48px) / 3);
+        min-width: 0;
+        scroll-snap-align: start;
+      }
+      .featured-date {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: .9rem;
+        opacity: .72;
+        font-weight: 600;
+      }
+      .featured-controls {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .featured-arrow {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 1px solid currentColor;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform .2s ease, opacity .2s ease;
+      }
+      .featured-arrow:hover { transform: translateY(-2px); }
+      .featured-arrow:disabled { opacity: .35; cursor: default; transform: none; }
+      .featured-media {
+        position: relative;
+        overflow: hidden;
+      }
+      .featured-placeholder {
+        min-height: 220px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        background: rgba(127,127,127,.08);
+      }
+      .featured-placeholder i { font-size: 2rem; opacity: .75; }
+      .certificate-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin-top: 10px;
+        font-size: .92rem;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .certificate-link:hover { text-decoration: underline; }
+
+      @media (max-width: 900px) {
+        .featured-track .publication-card { flex-basis: calc((100% - 24px) / 2); }
+      }
+      @media (max-width: 600px) {
+        .featured-track .publication-card { flex-basis: 100%; }
+      }
+
+      /* Requested profile photo adjustment: slightly larger, no top/bottom face crop */
+      .hero-image .profile-img {
+        width: 380px !important;
+        height: 380px !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+      }
+      .logo .profile-logo {
+        object-fit: contain !important;
+        object-position: center center !important;
+      }
+      @media (max-width: 600px) {
+        .hero-image .profile-img {
+          width: min(330px, 88vw) !important;
+          height: min(330px, 88vw) !important;
+        }
+      }
+    </style>
+
 </head>
 <body>
     <!-- Header -->
@@ -25,7 +135,8 @@
                     <li><a href="#experience" class="nav-link" data-en="Experience" data-tr="Deneyim">Deneyim</a></li>
                     <li><a href="#education" class="nav-link" data-en="Education" data-tr="Eğitim">Eğitim</a></li>
                     <li><a href="#skills" class="nav-link" data-en="Skills" data-tr="Beceriler">Beceriler</a></li>
-                    <li><a href="#publications" class="nav-link" data-en="Projects" data-tr="Projeler">Projeler</a></li>
+                    <li><a href="#projects" class="nav-link" data-en="Projects" data-tr="Projeler">Projeler</a></li>
+                    <li><a href="#research" class="nav-link" data-en="Publication" data-tr="Yayın">Yayın</a></li>
                     <li><a href="#contact" class="nav-link" data-en="Contact" data-tr="İletişim">İletişim</a></li>
                 </ul>
             </nav>
@@ -36,18 +147,15 @@
             </div>
         </div>
     </header>
-
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container hero-content">
             <div class="hero-text">
-                <h1 class="animate" data-en="Computer Engineer & AI Researcher" data-tr="Bilgisayar Mühendisi & Yapay Zeka Araştırmacısı">Bilgisayar Mühendisi & Yapay Zeka Araştırmacısı</h1>
-                <p class="animate" 
-                    data-en="Two distinct passions: healthcare technology inspired by my medical family background, and aviation driven by lifelong curiosity. I apply AI and software engineering skills across both domains, from Alzheimer's detection to UAV systems." 
-                    data-tr="Sağlık teknolojileri ve havacılık: Birbirinden çok farklı ama ikisi de benim için önemli iki alan. Ailemin tıp geçmişi ve çocukluk havacılık hayallerim beni bugün yapay zeka ile nörolojik hastalık teşhisi ve UAV yazılımları geliştirmeye yöneltti.">
-                    Sağlık teknolojileri ve havacılık: Birbirinden çok farklı ama ikisi de benim için önemli iki alan. Ailemin tıp geçmişi ve çocukluk havacılık hayallerim beni bugün yapay zeka ile nörolojik hastalık teşhisi ve UAV yazılımları geliştirmeye yöneltti.
-                </p>
+                <h1 class="animate" data-en="Computer Engineer | AI · Computer Vision · Autonomous Systems" data-tr="Bilgisayar Mühendisi | Yapay Zekâ · Bilgisayarlı Görü · Otonom Sistemler">Bilgisayar Mühendisi | Yapay Zekâ · Bilgisayarlı Görü · Otonom Sistemler</h1>
+                <p class="animate"
+                   data-en="I focus on transforming research-driven ideas in artificial intelligence, computer vision, and autonomous systems into practical software solutions that can be applied in real-world systems. I work on image processing, deep learning, RAG systems, and autonomous UAV software, with an emphasis on validating the solutions I develop through real-world testing and system integration."
 
+                   data-tr="Yapay zekâ, bilgisayarlı görü ve otonom sistemler alanlarında; araştırma odaklı fikirleri gerçek sistemlerde uygulanabilir yazılım çözümlerine dönüştürmeye odaklanıyorum. Görüntü işleme, derin öğrenme, RAG sistemleri ve otonom İHA yazılımları üzerine çalışıyor; geliştirdiğim çözümleri gerçek ortam testleri ve sistem entegrasyonlarıyla doğrulamaya önem veriyorum.">Yapay zekâ, bilgisayarlı görü ve otonom sistemler alanlarında; araştırma odaklı fikirleri gerçek sistemlerde uygulanabilir yazılım çözümlerine dönüştürmeye odaklanıyorum. Görüntü işleme, derin öğrenme, RAG sistemleri ve otonom İHA yazılımları üzerine çalışıyor; geliştirdiğim çözümleri gerçek ortam testleri ve sistem entegrasyonlarıyla doğrulamaya önem veriyorum.</p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary" data-en="Contact Me" data-tr="İletişime Geç">İletişime Geç</a>
                     <a href="bochraNettour.pdf" target="_blank" class="btn btn-outline" data-en="Download CV" data-tr="CV İndir">CV İndir</a>
@@ -56,637 +164,295 @@
             <div class="hero-image">
                 <img src="dp.jpg" alt="Bochra Nettour" class="profile-img">
                 <div class="floating-shapes">
-                    <div class="shape shape-1"></div>
-                    <div class="shape shape-2"></div>
-                    <div class="shape shape-3"></div>
+                    <div class="shape shape-1"></div><div class="shape shape-2"></div><div class="shape shape-3"></div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- About Section -->
+<!-- Featured Section -->
+    <section class="section publications" id="featured">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Featured" data-tr="Öne Çıkanlar">Öne Çıkanlar</h2>
+                <p data-en="Beyond projects; moments that left a mark" data-tr="Projelerin ötesinde; iz bırakan anlar">Projelerin ötesinde; iz bırakan anlar</p>
+            </div>
+            <div class="featured-carousel">
+                <div class="featured-controls" aria-label="Featured navigation">
+                    <button class="featured-arrow" id="featuredPrev" type="button" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+                    <button class="featured-arrow" id="featuredNext" type="button" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="featured-track" id="featuredTrack">
+                <div class="publication-card"><img src="Foto/tungaEkip2026.jpeg" alt="TUNGA SAYE 2026 Team" class="publication-img"><div class="publication-content"><h3 data-en="TUNGA SAYE 2026 Team" data-tr="TUNGA SAYE 2026 Ekibi">TUNGA SAYE 2026 Ekibi</h3><p class="publication-description" data-en="The TUNGA SAYE team I worked with during the TEKNOFEST Combat UAV 2026 finalist journey." data-tr="TEKNOFEST Savaşan İHA 2026 finalist sürecinde birlikte çalıştığımız TUNGA SAYE ekibi.">TEKNOFEST Savaşan İHA 2026 finalist sürecinde birlikte çalıştığımız TUNGA SAYE ekibi.</p><span class="featured-date">08.2026</span></div></div>
+                <div class="publication-card"><img src="Foto/MezuniyetFoto1.jpeg" alt="Computer Engineering Graduation" class="publication-img"><div class="publication-content"><h3 data-en="Computer Engineering Graduation" data-tr="Bilgisayar Mühendisliği Mezuniyeti">Bilgisayar Mühendisliği Mezuniyeti</h3><p class="publication-description" data-en="I graduated from Bartın University with a B.Sc. in Computer Engineering with Honors." data-tr="Bartın Üniversitesi Bilgisayar Mühendisliği bölümünden Onur Derecesi ile mezuniyetim.">Bartın Üniversitesi Bilgisayar Mühendisliği bölümünden Onur Derecesi ile mezuniyetim.</p><span class="featured-date">06.2026</span></div></div>
+                <div class="publication-card"><div class="featured-media"><img src="Foto/aisoft-logoo.png" alt="AI Soft — AI Internship" class="publication-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="featured-placeholder"><i class="fas fa-briefcase"></i><span>AI Soft</span></div></div><div class="publication-content"><h3 data-en="AI Soft — AI Internship" data-tr="AI Soft – Yapay Zekâ Stajı">AI Soft – Yapay Zekâ Stajı</h3><p class="publication-description" data-en="I completed my four-month AI internship at AI Soft, contributing to AI-assisted video analytics, human recognition and pose-estimation work." data-tr="AI Soft’ta dört aylık Yapay Zekâ stajımı tamamlayarak yapay zekâ destekli video analiz, insan tanıma ve pose estimation çalışmalarına katkı sağladım.">AI Soft’ta dört aylık Yapay Zekâ stajımı tamamlayarak yapay zekâ destekli video analiz, insan tanıma ve pose estimation çalışmalarına katkı sağladım.</p><span class="featured-date">06.2026</span></div></div>
+                <div class="publication-card"><img src="Foto/TubitakEgtimSertifika_page-0001.jpg" alt="TÜBİTAK 2237-A Scientific Training Program" class="publication-img"><div class="publication-content"><h3 data-en="TÜBİTAK 2237-A Scientific Training Program" data-tr="TÜBİTAK 2237-A Bilimsel Eğitim Programı">TÜBİTAK 2237-A Bilimsel Eğitim Programı</h3><p class="publication-description" data-en="I completed the training “Use of Artificial Intelligence and Ethical Principles in Academic Writing and Research Processes,” strengthening my approach to responsible academic research." data-tr="“Akademik Yazma ve Araştırma Süreçlerinde Yapay Zekâ Kullanımı ve Etik İlkeler” eğitimine katılarak akademik araştırmalarda yapay zekânın doğru ve etik kullanımına yönelik bilgi birikimimi geliştirdim.">“Akademik Yazma ve Araştırma Süreçlerinde Yapay Zekâ Kullanımı ve Etik İlkeler” eğitimine katılarak akademik araştırmalarda yapay zekânın doğru ve etik kullanımına yönelik bilgi birikimimi geliştirdim.</p><span class="featured-date">05.2026</span><a class="certificate-link" href="Foto/TubitakEgtimSertifika_page-0001.jpg" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i><span data-en="View Certificate" data-tr="Sertifikayı Görüntüle">Sertifikayı Görüntüle</span></a></div></div>
+                <div class="publication-card"><img src="Foto/BarinUniversitemizinRektoruIleHAtira.jpg" alt="A Memory with Our Rector" class="publication-img"><div class="publication-content"><h3 data-en="A Memory with Our Rector" data-tr="Rektörümüz ile Hatıra">Rektörümüz ile Hatıra</h3><p class="publication-description" data-en="A meaningful memory from Bartın University following the projects and activities we carried out with our team." data-tr="Bartın Üniversitesi’nde ekibimizle yürüttüğümüz proje ve çalışmaların ardından güzel bir hatıra.">Bartın Üniversitesi’nde ekibimizle yürüttüğümüz proje ve çalışmaların ardından güzel bir hatıra.</p><span class="featured-date">02.2026</span></div></div>
+                <div class="publication-card"><img src="Foto/UnidesProjesi1.jpeg" alt="First Step to the Sky — ÜNİDES" class="publication-img"><div class="publication-content"><h3 data-en="First Step to the Sky — ÜNİDES" data-tr="Gökyüzüne İlk Adım – ÜNİDES">Gökyüzüne İlk Adım – ÜNİDES</h3><p class="publication-description" data-en="As part of the Ministry of Youth and Sports-supported project, we hosted middle-school students at our university and introduced them to aviation and technology." data-tr="T.C. Gençlik ve Spor Bakanlığı tarafından desteklenen proje kapsamında ortaokul öğrencilerini üniversitemizde ağırlayarak havacılık ve teknolojiyle buluşturduk.">T.C. Gençlik ve Spor Bakanlığı tarafından desteklenen proje kapsamında ortaokul öğrencilerini üniversitemizde ağırlayarak havacılık ve teknolojiyle buluşturduk.</p><span class="featured-date">01.2026</span></div></div>
+                <div class="publication-card"><img src="Foto/Arge1.jpeg" alt="8th International R&D Project Fair" class="publication-img"><div class="publication-content"><h3 data-en="8th International R&D Project Fair" data-tr="8. Uluslararası Ar-Ge Proje Pazarı">8. Uluslararası Ar-Ge Proje Pazarı</h3><p class="publication-description" data-en="As Software Captain at the TUNGA SAYE stand, I presented our UAV system to visitors ranging from students to engineers, academics and administrators." data-tr="TUNGA SAYE standında takımın Yazılım Kaptanı olarak İHA sistemimizi öğrencilerden mühendislere, akademisyenlere ve yöneticilere kadar farklı ziyaretçi gruplarına anlattım.">TUNGA SAYE standında takımın Yazılım Kaptanı olarak İHA sistemimizi öğrencilerden mühendislere, akademisyenlere ve yöneticilere kadar farklı ziyaretçi gruplarına anlattım.</p><span class="featured-date">12.2025</span></div></div>
+                <div class="publication-card"><img src="Foto/BartinKonferans2.jpeg" alt="TUNGA SAYE on the TEKNOFEST Stage" class="publication-img"><div class="publication-content"><h3 data-en="TUNGA SAYE on the TEKNOFEST Stage" data-tr="TEKNOFEST Sahnesinde TUNGA SAYE">TEKNOFEST Sahnesinde TUNGA SAYE</h3><p class="publication-description" data-en="I was on stage with TUNGA SAYE as a TEKNOFEST finalist at the event organized at Bartın University by the Türkiye Technology Team Foundation, TEKNOFEST Coordination Office and club." data-tr="Bartın Üniversitesi’nde Türkiye Teknoloji Takımı Vakfı, TEKNOFEST Koordinatörlüğü ve Kulübü tarafından düzenlenen etkinlikte, TEKNOFEST finalisti TUNGA SAYE ekibi olarak sahnedeydik.">Bartın Üniversitesi’nde Türkiye Teknoloji Takımı Vakfı, TEKNOFEST Koordinatörlüğü ve Kulübü tarafından düzenlenen etkinlikte, TEKNOFEST finalisti TUNGA SAYE ekibi olarak sahnedeydik.</p><span class="featured-date">11.2025</span></div></div>
+                <div class="publication-card"><img src="Foto/teknofestSertifika2025.jpeg" alt="TEKNOFEST 2025 Achievement Certificate" class="publication-img"><div class="publication-content"><h3 data-en="TEKNOFEST 2025 Achievement Certificate" data-tr="TEKNOFEST 2025 Başarı Sertifikası">TEKNOFEST 2025 Başarı Sertifikası</h3><p class="publication-description" data-en="My achievement certificate from the TEKNOFEST Combat UAV Competition 2025 finalist journey." data-tr="TEKNOFEST Savaşan İHA Yarışması 2025 finalist sürecine ait başarı sertifikam.">TEKNOFEST Savaşan İHA Yarışması 2025 finalist sürecine ait başarı sertifikam.</p><span class="featured-date">11.2025</span></div></div>
+                <div class="publication-card"><img src="Foto/TungaEtimileri1.jpeg" alt="Software Team Trainings" class="publication-img"><div class="publication-content"><h3 data-en="Software Team Trainings" data-tr="Yazılım Ekibi Eğitimleri">Yazılım Ekibi Eğitimleri</h3><p class="publication-description" data-en="As Software Captain, I delivered training to team members on computer vision, UAV software and engineering development workflows." data-tr="Yazılım Kaptanı olarak ekip üyelerine görüntü işleme, İHA yazılımları ve mühendislik geliştirme süreçleri üzerine eğitimler verdim.">Yazılım Kaptanı olarak ekip üyelerine görüntü işleme, İHA yazılımları ve mühendislik geliştirme süreçleri üzerine eğitimler verdim.</p><span class="featured-date">10.2025</span></div></div>
+                <div class="publication-card"><img src="Foto/TungaEkipFoto2025.jpg" alt="TUNGA SAYE 2025 Team" class="publication-img"><div class="publication-content"><h3 data-en="TUNGA SAYE 2025 Team" data-tr="TUNGA SAYE 2025 Ekibi">TUNGA SAYE 2025 Ekibi</h3><p class="publication-description" data-en="The team I competed with during the TEKNOFEST Combat UAV 2025 finalist journey." data-tr="TEKNOFEST Savaşan İHA 2025 finalist sürecinde birlikte yarıştığımız ekip.">TEKNOFEST Savaşan İHA 2025 finalist sürecinde birlikte yarıştığımız ekip.</p><span class="featured-date">08.2025</span></div></div>
+                <div class="publication-card"><img src="Foto/TungaEkipKizlariILeHatira2025.JPG" alt="TUNGA Girls — Team Memory" class="publication-img"><div class="publication-content"><h3 data-en="TUNGA Girls — Team Memory" data-tr="TUNGA Kızları ile Hatıra">TUNGA Kızları ile Hatıra</h3><p class="publication-description" data-en="A memorable moment with the women of TUNGA SAYE during an intense period of teamwork and preparation." data-tr="TUNGA SAYE’nin kadın ekip üyeleriyle yoğun bir çalışma ve hazırlık döneminden güzel bir hatıra.">TUNGA SAYE’nin kadın ekip üyeleriyle yoğun bir çalışma ve hazırlık döneminden güzel bir hatıra.</p><span class="featured-date">07.2025</span></div></div>
+                <div class="publication-card"><img src="Foto/bulsensStajSertifakasi_page-0001.jpg" alt="Bluesense AI — Summer Internship" class="publication-img"><div class="publication-content"><h3 data-en="Bluesense AI — Summer Internship" data-tr="Bluesense AI – Yaz Stajı">Bluesense AI – Yaz Stajı</h3><p class="publication-description" data-en="I completed a two-month AI internship at Bluesense AI, working on image preprocessing, data preparation, model training and evaluation." data-tr="Bluesense AI’da iki aylık Yapay Zekâ stajımı tamamlayarak görüntü ön işleme, veri hazırlama, model eğitimi ve değerlendirme süreçlerinde çalıştım.">Bluesense AI’da iki aylık Yapay Zekâ stajımı tamamlayarak görüntü ön işleme, veri hazırlama, model eğitimi ve değerlendirme süreçlerinde çalıştım.</p><span class="featured-date">07.2025</span><a class="certificate-link" href="Foto/bulsensStajSertifakasi_page-0001.jpg" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i><span data-en="View Certificate" data-tr="Sertifikayı Görüntüle">Sertifikayı Görüntüle</span></a></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- About Section -->
     <section class="section about" id="about">
         <div class="container">
             <div class="section-title">
                 <h2 data-en="About Me" data-tr="Hakkımda">Hakkımda</h2>
-                <p 
-                    data-en="From a medical family background to AI engineering — building healthcare and aerospace solutions that save lives" 
-                    data-tr="Tıp ailesinden gelen bir mühendis olarak, yapay zekâyı sağlık ve havacılık alanlarında hayata geçiriyorum">Tıp ailesinden gelen bir mühendis olarak, yapay zekâyı sağlık ve havacılık alanlarında hayata geçiriyorum                </p>
-                
+                <p data-en="My engineering journey from artificial intelligence to autonomous systems" data-tr="Yapay zekâdan otonom sistemlere uzanan mühendislik yolculuğum">Yapay zekâdan otonom sistemlere uzanan mühendislik yolculuğum</p>
             </div>
-                <div class="stats-and-image">
-                    <!-- Creative floating image with hover effects -->
-                    <div class="speaking-image-container">
-                        <img src="tenkofest.jpg" alt="Bochra Nettour at the Teknofest 2025" />
-                        <div class="image-overlay">
-                           <h4 data-en="TEKNOFEST 2025" data-tr="TEKNOFEST 2025">TEKNOFEST 2025</h4>
-                            <p data-en="Combat UAV Finalist" 
-                            data-tr="Savaşan İHA Yarışmas">
-                            Savaşan İHA Yarışması 
-                            </p>
-
-                        </div>
+            <div class="stats-and-image">
+                <div class="speaking-image-container">
+                    <img src="tenkofest.jpg" alt="Bochra Nettour at TEKNOFEST" />
+                    <div class="image-overlay">
+                        <h4 data-en="TEKNOFEST" data-tr="TEKNOFEST">TEKNOFEST</h4>
+                        <p data-en="2025 & 2026 Finalist" data-tr="2025 & 2026 Finalisti">2025 & 2026 Finalisti</p>
                     </div>
                 </div>
-
-            <div class="about-text">
-                <h3 data-en="Healthcare Technology and Aerospace AI" data-tr="Sağlık Teknolojileri ve Havacılıkta Yapay Zeka">Sağlık Teknolojileri ve Havacılıkta Yapay Zeka</h3>
-                
-                <p data-en="I'm an international Computer Engineering student from Algeria, currently studying in Turkey. My background is shaped by both technology and healthcare: while I grew up fascinated by aviation, being part of a medical family inspired my interest in healthcare technologies." data-tr="Cezayir'den uluslararası bir Bilgisayar Mühendisliği öğrencisiyim ve şu anda Türkiye'de eğitimime devam ediyorum. Geçmişim hem teknoloji hem de sağlık alanıyla şekillenmiştir: havacılığa olan hayranlığımla büyürken, tıp alanında bir ailenin parçası olmam sağlık teknolojilerine olan ilgime ilham verdi.">Cezayir'den uluslararası bir Bilgisayar Mühendisliği öğrencisiyim ve şu anda Türkiye'de eğitimime devam ediyorum. Geçmişim hem teknoloji hem de sağlık alanıyla şekillenmiştir: havacılığa olan hayranlığımla büyürken, tıp alanında bir ailenin parçası olmam sağlık teknolojilerine olan ilgime ilham verdi.</p>
-
-                <h4 data-en="Two Different Fields, One Goal" data-tr="İki Farklı Alan, Tek Hedef">İki Farklı Alan, Tek Hedef</h4>
-
-                <p data-en="I develop MRI-based deep learning models for early detection of neurological diseases like Alzheimer's. Through my internship at Bluesense AI, I gained experience in clinical data processing and model evaluation techniques." data-tr="Alzheimer gibi nörolojik hastalıkların erken teşhisi için MRI tabanlı derin öğrenme modelleri geliştiriyorum. Bluesense AI'daki stajımda klinik veri işleme ve model değerlendirme teknikleri konusunda deneyim kazandım.">Alzheimer gibi nörolojik hastalıkların erken teşhisi için MRI tabanlı derin öğrenme modelleri geliştiriyorum. Bluesense AI'daki stajımda klinik veri işleme ve model değerlendirme teknikleri konusunda deneyim kazandım.</p>
-
-                <p data-en="Our team achieved 3rd place in Turkey in the TEKNOFEST Combat UAV Competition (System Diagnostic Video). With TUNGA SAYE, I developed the C++/Qt Ground Control Station and worked on computer vision systems. I currently mentor as the Software Team Deputy Captain at the Aviation and Space Club." data-tr="TEKNOFEST Savaşan İHA Yarışması Sistem Tanılama Videosu kategorisinde ekibimizle Türkiye 3.'sü olduk. TUNGA SAYE ile C++/Qt Yer Kontrol İstasyonu geliştirdim ve bilgisayarlı görü sistemleri üzerinde çalıştım. Şu anda Havacılık ve Uzay Kulübü'nde yazılım birimi kaptan yardımcısı olarak mentorluk yapıyorum.">TEKNOFEST Savaşan İHA Yarışması Sistem Tanılama Videosu kategorisinde ekibimizle Türkiye 3.'sü olduk. TUNGA SAYE ile C++/Qt Yer Kontrol İstasyonu geliştirdim ve bilgisayarlı görü sistemleri üzerinde çalıştım. Şu anda Havacılık ve Uzay Kulübü'nde yazılım birimi kaptan yardımcısı olarak mentorluk yapıyorum.</p>
-
-                <p data-en="Fluent in Arabic, English, and Turkish, with three years of English teaching experience." data-tr="Arapça, İngilizce ve Türkçe dillerinde akıcıyım ve üç yıllık İngilizce öğretmenliği deneyimim var.">Arapça, İngilizce ve Türkçe dillerinde akıcıyım ve üç yıllık İngilizce öğretmenliği deneyimim var.</p>
-
-                <p data-en="My vision is clear: to apply AI and software systems in fields that directly impact lives — from medical imaging to aerospace innovation — and create solutions that make a real difference." data-tr="Vizyonum açık: Yapay zeka ve yazılım sistemlerini hayatları doğrudan etkileyen alanlarda — tıbbi görüntülemeden havacılık inovasyonuna — uygulamak ve gerçekten fark yaratan çözümler üretmek.">Vizyonum açık: Yapay zeka ve yazılım sistemlerini hayatları doğrudan etkileyen alanlarda — tıbbi görüntülemeden havacılık inovasyonuna — uygulamak ve gerçekten fark yaratan çözümler üretmek.</p>
             </div>
-
-
-           
-
-
+            <div class="about-text">
+                <h3 data-en="From AI Research to Real-Flight Systems" data-tr="Yapay Zekâ Araştırmasından Gerçek Uçuş Sistemlerine">Yapay Zekâ Araştırmasından Gerçek Uçuş Sistemlerine</h3>
+                <p data-en="I am a Computer Engineering graduate and master's student focusing on artificial intelligence, computer vision and autonomous systems. I enjoy turning research ideas into systems that can be tested, measured and used in real environments." data-tr="Bilgisayar Mühendisliği mezunuyum ve yüksek lisans eğitimimde yapay zekâ, bilgisayarlı görü ve otonom sistemlere odaklanıyorum. Araştırma fikirlerini test edilebilir, ölçülebilir ve gerçek ortamlarda kullanılabilir sistemlere dönüştürmekten keyif alıyorum.">Bilgisayar Mühendisliği mezunuyum ve yüksek lisans eğitimimde yapay zekâ, bilgisayarlı görü ve otonom sistemlere odaklanıyorum. Araştırma fikirlerini test edilebilir, ölçülebilir ve gerçek ortamlarda kullanılabilir sistemlere dönüştürmekten keyif alıyorum.</p>
+                <h4 data-en="Engineering Across AI and UAV Systems" data-tr="Yapay Zekâ ve İHA Sistemlerinde Mühendislik">Yapay Zekâ ve İHA Sistemlerinde Mühendislik</h4>
+                <p data-en="As Software Captain of TUNGA SAYE UAV Team, I coordinate development in image processing, AI, ground control and flight software. Our team reached the TEKNOFEST Combat UAV finals in both 2025 and 2026, and placed 3rd in Turkey in the 2025 video evaluation stage." data-tr="TUNGA SAYE UAV Team'de Yazılım Kaptanı olarak görüntü işleme, yapay zekâ, yer kontrol ve uçuş yazılımı çalışmalarını koordine ediyorum. Takımımız 2025 ve 2026 yıllarında TEKNOFEST Savaşan İHA finaline kaldı; 2025 video değerlendirme aşamasında Türkiye 3.'sü olduk.">TUNGA SAYE UAV Team'de Yazılım Kaptanı olarak görüntü işleme, yapay zekâ, yer kontrol ve uçuş yazılımı çalışmalarını koordine ediyorum. Takımımız 2025 ve 2026 yıllarında TEKNOFEST Savaşan İHA finaline kaldı; 2025 video değerlendirme aşamasında Türkiye 3.'sü olduk.</p>
+                <p data-en="My project portfolio spans real-time UAV detection and tracking, QR-based autonomous missions, a local adaptive RAG system, MRI-based early-stage Alzheimer classification, and a modular C++/Qt ground control station." data-tr="Proje portföyüm; gerçek zamanlı İHA tespit ve takibi, QR tabanlı otonom görevler, yerel çalışan adaptif RAG sistemi, MRI tabanlı erken evre Alzheimer sınıflandırması ve modüler C++/Qt yer kontrol istasyonunu kapsıyor.">Proje portföyüm; gerçek zamanlı İHA tespit ve takibi, QR tabanlı otonom görevler, yerel çalışan adaptif RAG sistemi, MRI tabanlı erken evre Alzheimer sınıflandırması ve modüler C++/Qt yer kontrol istasyonunu kapsıyor.</p>
+                <p data-en="I can communicate effectively in Arabic, English, and Turkish. In my work, I value collaboration, strong technical communication, and developing solutions that are not only theoretically sound but also tested and validated on real-world systems." data-tr="Arapça, İngilizce ve Türkçe dillerinde etkin iletişim kurabiliyorum. Çalışmalarımda ekip içi iş birliğine, güçlü teknik iletişime ve geliştirdiğim çözümlerin yalnızca teoride değil, gerçek sistemler üzerinde test edilip doğrulanmasına önem veriyorum.">Arapça, İngilizce ve Türkçe dillerinde etkin iletişim kurabiliyorum. Çalışmalarımda ekip içi iş birliğine, güçlü teknik iletişime ve geliştirdiğim çözümlerin yalnızca teoride değil, gerçek sistemler üzerinde test edilip doğrulanmasına önem veriyorum.</p>
+            </div>
             <div class="stats-and-image">
                 <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number">3+</div>
-                        <div class="stat-label" data-en="Years of Coding" data-tr="Yıl Programlama Deneyimi">Yıl Programlama Deneyimi</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-en="TEKNOFEST" data-tr="TEKNOFEST">TEKNOFEST</div>
-                        <div class="stat-label" data-en="Combat UAV Finalist" data-tr="Savaşan İHA Finalisti">Savaşan İHA Finalisti</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label" data-en="AI/ML Projects" data-tr="Yapay Zeka Projesi">Yapay Zeka Projesi</div>
-                    </div>
+                    <div class="stat-item"><div class="stat-number">3+</div><div class="stat-label" data-en="Years of Programming Experience" data-tr="Yıl Programlama Deneyimi">Yıl Programlama Deneyimi</div></div>
+                    <div class="stat-item"><div class="stat-number" data-en="Honors Graduate" data-tr="Onur Derecesi">Onur Derecesi</div><div class="stat-label" data-en="B.Sc. in Computer Engineering" data-tr="Bilgisayar Mühendisliği Mezunu">Bilgisayar Mühendisliği Mezunu</div></div>
+                    <div class="stat-item"><div class="stat-number">2×</div><div class="stat-label" data-en="TEKNOFEST Finalist" data-tr="TEKNOFEST Finalisti">TEKNOFEST Finalisti</div></div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Experience Section -->
+<!-- Projects Section -->
+    <section class="section publications" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Projects" data-tr="Projeler">Projeler</h2>
+                <p data-en="AI, computer vision and autonomous-system projects developed for real-world use" data-tr="Gerçek dünya uygulamalarına yönelik yapay zekâ, bilgisayarlı görü ve otonom sistem projeleri">Gerçek dünya uygulamalarına yönelik yapay zekâ, bilgisayarlı görü ve otonom sistem projeleri</p>
+            </div>
+            <div class="publications-container">
+                <div class="publication-card"><div class="publication-content">
+                    <h3 data-en="Autonomous UAV Vision System" data-tr="Otonom İHA Görüntü İşleme Sistemi">Otonom İHA Görüntü İşleme Sistemi</h3>
+                    <div class="publication-meta"><span>Python | YOLO | ByteTrack | OpenCV | ROS Noetic | FFmpeg</span></div>
+                    <p class="publication-description" data-en="Built a real-time UAV detection and tracking pipeline with ID-based target selection and reacquisition. In real flight, the system maintained 5+ seconds of continuous target tracking. I also developed a multi-stage QR pipeline that successfully read a 2×2 m target from about 60 m during a dive, and distributed Herelink RTSP video through an FFmpeg-based persistent pipeline for processing, recording and live display." data-tr="ID tabanlı hedef seçimi ve yeniden yakalama mekanizmaları içeren gerçek zamanlı İHA tespit ve takip sistemi geliştirdim; sistem gerçek uçuşta hedef üzerinde 5+ saniye kesintisiz takip sağladı. Ayrıca çok aşamalı QR sistemiyle dalış sırasında yaklaşık 60 metreden 2×2 m hedefi başarıyla okuduk ve Herelink RTSP görüntüsünü FFmpeg tabanlı kesintisiz hat üzerinden işleme, kayıt ve canlı görüntülemeye dağıttım.">ID tabanlı hedef seçimi ve yeniden yakalama mekanizmaları içeren gerçek zamanlı İHA tespit ve takip sistemi geliştirdim; sistem gerçek uçuşta hedef üzerinde 5+ saniye kesintisiz takip sağladı. Ayrıca çok aşamalı QR sistemiyle dalış sırasında yaklaşık 60 metreden 2×2 m hedefi başarıyla okuduk ve Herelink RTSP görüntüsünü FFmpeg tabanlı kesintisiz hat üzerinden işleme, kayıt ve canlı görüntülemeye dağıttım.</p>
+                    <a class="project-github-link" href="https://github.com/bochra39/TUNGA-Autonomous-Vision" target="_blank" rel="noopener"><i class="fab fa-github"></i><span data-en="View on GitHub →" data-tr="GitHub'da İncele →">GitHub'da İncele →</span></a>
+                </div></div>
+                <div class="publication-card"><div class="publication-content">
+                    <h3 data-en="TUNGA.AI — Adaptive Hybrid RAG System" data-tr="TUNGA.AI — Adaptif Hybrid RAG Sistemi">TUNGA.AI — Adaptif Hybrid RAG Sistemi</h3>
+                    <div class="publication-meta"><span>Python | Hybrid Retrieval | Reranking | LLM</span></div>
+                    <p class="publication-description" data-en="Developed a fully local RAG system so the team can query private technical documentation without sending it to external AI services. Implemented adaptive query planning, evidence grading, corrective retrieval and source-grounded answer generation. On a 60-question development benchmark, Soft Router V2 reached 95% Hit@10, 90.8% Recall@10 and 0.824 MRR@10." data-tr="TUNGA ekibinin kamuya açık olmayan teknik dokümanlarını harici yapay zekâ servislerine göndermeden sorgulayabilmesi için tamamen yerel çalışan bir RAG sistemi geliştirdim. Adaptive query planning, evidence grading, corrective retrieval ve kaynak-temelli cevap üretimi mekanizmalarını uyguladım. 60 soruluk geliştirme benchmarkında Soft Router V2 ile %95 Hit@10, %90.8 Recall@10 ve 0.824 MRR@10 elde ettim.">TUNGA ekibinin kamuya açık olmayan teknik dokümanlarını harici yapay zekâ servislerine göndermeden sorgulayabilmesi için tamamen yerel çalışan bir RAG sistemi geliştirdim. Adaptive query planning, evidence grading, corrective retrieval ve kaynak-temelli cevap üretimi mekanizmalarını uyguladım. 60 soruluk geliştirme benchmarkında Soft Router V2 ile %95 Hit@10, %90.8 Recall@10 ve 0.824 MRR@10 elde ettim.</p>
+                    <a class="project-github-link" href="https://github.com/bochra39/TUNGA-AI-RAG" target="_blank" rel="noopener"><i class="fab fa-github"></i><span data-en="View on GitHub →" data-tr="GitHub'da İncele →">GitHub'da İncele →</span></a>
+                </div></div>
+                <div class="publication-card"><div class="publication-content">
+                    <h3 data-en="Early-Stage Alzheimer MRI Classification" data-tr="Erken Evre Alzheimer MRI Sınıflandırma Sistemi">Erken Evre Alzheimer MRI Sınıflandırma Sistemi</h3>
+                    <div class="publication-meta"><span>Python | PyTorch | MONAI | 3D CNN</span></div>
+                    <p class="publication-description" data-en="Built a clinical decision-support prototype for CN–MCI classification on ADNI 3D structural MRI. Compared 3D ResNet-18, DenseNet121 and ResNet50 with MNI152 alignment, brain masking, normalization, subject-level splitting, class balancing, transfer learning and augmentation. The most balanced DenseNet121 model achieved 71.18% accuracy, 74.12% MCI sensitivity and 68.24% CN specificity." data-tr="ADNI 3D yapısal MRI verileri üzerinde CN–MCI sınıflandırması için klinik karar destek sistemi geliştirdim. 3D ResNet-18, DenseNet121 ve ResNet50 mimarilerini; MNI152 hizalama, beyin maskeleme, normalizasyon, subject-level bölme, sınıf dengeleme, transfer learning ve augmentation süreçleriyle karşılaştırdım. En dengeli DenseNet121 modeli %71,18 doğruluk, %74,12 MCI duyarlılığı ve %68,24 CN özgüllüğü elde etti.">ADNI 3D yapısal MRI verileri üzerinde CN–MCI sınıflandırması için klinik karar destek sistemi geliştirdim. 3D ResNet-18, DenseNet121 ve ResNet50 mimarilerini; MNI152 hizalama, beyin maskeleme, normalizasyon, subject-level bölme, sınıf dengeleme, transfer learning ve augmentation süreçleriyle karşılaştırdım. En dengeli DenseNet121 modeli %71,18 doğruluk, %74,12 MCI duyarlılığı ve %68,24 CN özgüllüğü elde etti.</p>
+                    <a class="project-github-link" href="https://github.com/bochra39/early-alzheimer-mri-classification" target="_blank" rel="noopener"><i class="fab fa-github"></i><span data-en="View on GitHub →" data-tr="GitHub'da İncele →">GitHub'da İncele →</span></a>
+                </div></div>
+                <div class="publication-card"><div class="publication-content">
+                    <h3 data-en="Ground Control Station" data-tr="Yer Kontrol İstasyonu">Yer Kontrol İstasyonu</h3>
+                    <div class="publication-meta"><span>C++ | Qt/QML | ROS Noetic | OpenCV</span></div>
+                    <p class="publication-description" data-en="Developed a modular ground control station for the TEKNOFEST Combat UAV Competition supporting simultaneous telemetry and map tracking for about 40 UAVs. Integrated flight-mode monitoring, telemetry, opponent-UAV analysis, waypoint management, mission control, camera display, competition-server communication and autonomous lock / kamikaze workflows into a single interface." data-tr="TEKNOFEST Savaşan İHA Yarışması kapsamında yaklaşık 40 İHA'nın eşzamanlı telemetri ve harita takibini destekleyen modüler bir Yer Kontrol İstasyonu geliştirdim. Uçuş modu takibi, telemetri, rakip İHA analizi, waypoint yönetimi, görev kontrolü, kamera görüntüsü, yarışma sunucusu haberleşması ile kilitlenme ve kamikaze süreçlerini tek arayüzde birleştirdim.">TEKNOFEST Savaşan İHA Yarışması kapsamında yaklaşık 40 İHA'nın eşzamanlı telemetri ve harita takibini destekleyen modüler bir Yer Kontrol İstasyonu geliştirdim. Uçuş modu takibi, telemetri, rakip İHA analizi, waypoint yönetimi, görev kontrolü, kamera görüntüsü, yarışma sunucusu haberleşması ile kilitlenme ve kamikaze süreçlerini tek arayüzde birleştirdim.</p>
+                    <a class="project-github-link" href="https://github.com/bochra39/TUNGA_Ground_Control_Station" target="_blank" rel="noopener"><i class="fab fa-github"></i><span data-en="View on GitHub →" data-tr="GitHub'da İncele →">GitHub'da İncele →</span></a>
+                </div></div>
+            </div>
+        </div>
+    </section>
+<!-- Languages Section -->
+    <section class="section education" id="languages">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Languages" data-tr="Diller">Diller</h2>
+                <p data-en="Languages I use confidently in academic, technical and professional settings" data-tr="Akademik, teknik ve profesyonel ortamlarda etkin kullandığım diller">Akademik, teknik ve profesyonel ortamlarda etkin kullandığım diller</p>
+            </div>
+            <div class="education-container">
+                <div class="education-card"><div class="education-card-header"><h3 data-en="Arabic" data-tr="Arapça">Arapça</h3></div><div class="education-card-body"><p data-en="Native" data-tr="Ana Dil">Ana Dil</p></div></div>
+                <div class="education-card"><div class="education-card-header"><h3 data-en="English" data-tr="İngilizce">İngilizce</h3></div><div class="education-card-body"><p data-en="C1 · Advanced" data-tr="C1 · İleri Seviye">C1 · İleri Seviye</p></div></div>
+                <div class="education-card"><div class="education-card-header"><h3 data-en="Turkish" data-tr="Türkçe">Türkçe</h3></div><div class="education-card-body"><p data-en="C1 · Advanced" data-tr="C1 · İleri Seviye">C1 · İleri Seviye</p></div></div>
+            </div>
+        </div>
+    </section>
+<!-- Experience Section -->
     <section class="section experience" id="experience">
         <div class="container">
             <div class="section-title">
                 <h2 data-en="Professional Experience" data-tr="Profesyonel Deneyim">Profesyonel Deneyim</h2>
-                <p data-en="My journey through different technical roles and responsibilities" data-tr="Farklı teknik roller ve sorumluluklar boyunca yolculuğum">Farklı teknik roller ve sorumluluklar boyunca yolculuğum</p>
+                <p data-en="AI development, UAV engineering and technical leadership" data-tr="Yapay zekâ geliştirme, İHA mühendisliği ve teknik liderlik">Yapay zekâ geliştirme, İHA mühendisliği ve teknik liderlik</p>
             </div>
             <div class="timeline">
-                <div class="timeline-item left">
-                    <div class="timeline-content">
-                        <div class="timeline-date" data-en="May - July 2025" data-tr="Mayıs - Temmuz 2025">Mayıs - Temmuz 2025</div>
-                        <h3 class="timeline-title" data-en="AI Intern" data-tr="Yapay Zekâ Stajyeri">Yapay Zekâ Stajyeri</h3>
-                        <p class="timeline-subtitle" data-en="Bluesense AI, Istanbul - Remote" data-tr="Bluesense AI, İstanbul - Uzaktan (Remote)">Bluesense AI, İstanbul - Uzaktan (Remote)</p>
-                        <ul>
-                            <li data-en="Coordinated clinical data acquisition and anonymization processes" data-tr="Klinik veri edinimi ve anonimleştirme süreçlerini koordine ettim">Klinik veri edinimi ve anonimleştirme süreçlerini koordine ettim</li>
-                            <li data-en="Performed MRI preprocessing, label verification, and data augmentation" data-tr="MRI preprocessing, etiket doğrulama ve veri artırma çalışmaları yaptım">MRI preprocessing, etiket doğrulama ve veri artırma çalışmaları yaptım</li>
-                            <li data-en="Gained experience with CNN-based model prototypes in accuracy, F1, AUC, cross-validation" data-tr="CNN tabanlı model prototiplerinde accuracy, F1, AUC, cross-validation deneyimi kazandım">CNN tabanlı model prototiplerinde accuracy, F1, AUC, cross-validation deneyimi kazandım</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="timeline-content">
-                        <div class="timeline-date" data-en="2024 - 2025" data-tr="2024 - 2025">2024 - 2025</div>
-                        <h3 class="timeline-title" data-en="Competitor - TEKNOFEST Savaşan İHA Finalist (TUNGA SAYE)" data-tr="Yarışmacı — TEKNOFEST Savaşan İHA Finalisti (TUNGA SAYE)">Yarışmacı — TEKNOFEST Savaşan İHA Finalisti (TUNGA SAYE)</h3>
-                        <p class="timeline-subtitle" data-en="Bartın - Çanakkale - Istanbul" data-tr="Bartın - Çanakkale - İstanbul">Bartın - Çanakkale - İstanbul</p>
-                        <ul>
-                            <li data-en="Advanced to the finals ranking 3rd in Turkey among 629 teams" data-tr="629 takım arasından Türkiye 3.'sü olarak finale yükseldik">629 takım arasından Türkiye 3.'sü olarak finale yükseldik</li>
-                            <li data-en="Developed Ground Control Station with C++/Qt (simultaneous tracking of 27 UAVs, modular backend)" data-tr="C++/Qt ile Yer Kontrol İstasyonu geliştirdim (27 İHA'nın eşzamanlı takibi, modüler backend)">C++/Qt ile Yer Kontrol İstasyonu geliştirdim (27 İHA'nın eşzamanlı takibi, modüler backend)</li>
-                            <li data-en="Worked in image processing team with YOLOv11 for object detection and Pyzbar for QR code reading" data-tr="Görüntü işleme ekibinde YOLOv11 ile obje tespiti, Pyzbar ile QR kod okuma görevlerinde çalıştım">Görüntü işleme ekibinde YOLOv11 ile obje tespiti, Pyzbar ile QR kod okuma görevlerinde çalıştım</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="timeline-content">
-                        <div class="timeline-date" data-en="2025 - Present" data-tr="2025 - Devam">2025 - Devam</div>
-                        <h3 class="timeline-title" data-en="Software Team Deputy Captain - Aviation and Space Club (TUNGA SAYE)" data-tr="Yazılım Birimi Kaptan Yrd. — Havacılık ve Uzay Kulübü (TUNGA SAYE)">Yazılım Birimi Kaptan Yrd. — Havacılık ve Uzay Kulübü (TUNGA SAYE)</h3>
-                        <p class="timeline-subtitle" data-en="Bartın" data-tr="Bartın">Bartın</p>
-                        <ul>
-                            <li data-en="Provided training to new members on C++/Qt, UAV integration, and image processing" data-tr="Yeni üyelere C++/Qt, UAV entegrasyonu ve görüntü işleme eğitimleri verdim">Yeni üyelere C++/Qt, UAV entegrasyonu ve görüntü işleme eğitimleri verdim</li>
-                            <li data-en="Gained technical leadership and mentoring experience" data-tr="Teknik liderlik ve mentorluk deneyimi kazandım">Teknik liderlik ve mentorluk deneyimi kazandım</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="timeline-content">
-                        <div class="timeline-date" data-en="2022 - Present" data-tr="2022 - Devam">2022 - Devam</div>
-                        <h3 class="timeline-title" data-en="Freelance English Teacher" data-tr="Freelance İngilizce Öğretmeni">Freelance İngilizce Öğretmeni</h3>
-                        <p class="timeline-subtitle" data-en="Bartın - Remote" data-tr="Bartın - Uzaktan">Bartın - Uzaktan</p>
-                        <ul>
-                            <li data-en="Developed educational planning and communication skills for different age groups in online and face-to-face lessons" data-tr="Online ve yüz yüze derslerde farklı yaş gruplarına eğitim planlama ve iletişim becerileri geliştirdim">Online ve yüz yüze derslerde farklı yaş gruplarına eğitim planlama ve iletişim becerileri geliştirdim</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="timeline-content">
-                        <div class="timeline-date" data-en="2025 - Present" data-tr="2025 – Devam">2025 – Devam</div>
-                        <h3 class="timeline-title" data-en="Board Member & Social Media Coordinator — Aerospace Club" data-tr="Yönetim Kurulu Üyesi & Sosyal Medya Sorumlusu — Havacılık ve Uzay Kulübü">Yönetim Kurulu Üyesi & Sosyal Medya Sorumlusu — Havacılık ve Uzay Kulübü</h3>
-                        <p class="timeline-subtitle" data-en="Bartın" data-tr="Bartın">Bartın</p>
-                        <ul>
-                            <li data-en="Managed the club’s social media accounts and produced original content for events, competitions, and achievements." data-tr="Kulübün sosyal medya hesaplarını yönettim; etkinlikler, yarışmalar ve başarılarımız için özgün içerikler ürettim.">Kulübün sosyal medya hesaplarını yönettim; etkinlikler, yarışmalar ve başarılarımız için özgün içerikler ürettim.</li>
-                            <li data-en="Enhanced the team’s visibility and contributed to reaching a wider audience." data-tr="Takımın görünürlüğünü artırarak daha geniş bir kitleye ulaşılmasına katkı sağladım.">Takımın görünürlüğünü artırarak daha geniş bir kitleye ulaşılmasına katkı sağladım.</li>
-                            <li data-en="Expanded my professional network by establishing academic and industry connections." data-tr="Ağımı genişleterek akademik ve endüstriyel bağlantılar kurdum.">Ağımı genişleterek akademik ve endüstriyel bağlantılar kurdum.</li>
-                            <li data-en="Contributed to securing sponsorships for the club." data-tr="Kulübümüze sponsorlukların bulunmasına katkı sağladım.">Kulübümüze sponsorlukların bulunmasına katkı sağladım.</li>
-                        </ul>
-                    </div>
-                </div>
+                <div class="timeline-item left"><div class="timeline-content">
+                    <div class="timeline-date" data-en="2024 - Present" data-tr="2024 - Devam Ediyor">2024 - Devam Ediyor</div>
+                    <h3 class="timeline-title" data-en="Software Captain — TUNGA SAYE UAV Team" data-tr="Yazılım Kaptanı — TUNGA SAYE UAV Team">Yazılım Kaptanı — TUNGA SAYE UAV Team</h3>
+                    <p class="timeline-subtitle" data-en="Aviation and Space Club, Bartın" data-tr="Havacılık ve Uzay Kulübü, Bartın">Havacılık ve Uzay Kulübü, Bartın</p>
+                    <ul>
+                        <li data-en="Coordinated image processing, AI, ground-control interface and flight-software development for the TEKNOFEST Combat UAV Competition." data-tr="TEKNOFEST Savaşan İHA Yarışması için görüntü işleme, yapay zekâ, yer kontrol arayüzü ve uçuş yazılımı çalışmalarını koordine ettim.">TEKNOFEST Savaşan İHA Yarışması için görüntü işleme, yapay zekâ, yer kontrol arayüzü ve uçuş yazılımı çalışmalarını koordine ettim.</li>
+                        <li data-en="Reached the finals in 2025 and 2026; ranked 3rd in Turkey in the 2025 video evaluation stage." data-tr="2025 ve 2026'da finalist olduk; 2025 video değerlendirme aşamasında Türkiye 3.'sü olduk.">2025 ve 2026'da finalist olduk; 2025 video değerlendirme aşamasında Türkiye 3.'sü olduk.</li>
+                        <li data-en="Contributed directly to autonomous vision, target tracking, QR missions and integration of AI-based engineering tools into real-flight systems." data-tr="Otonom görüntü işleme, hedef takip, QR görevleri ve yapay zekâ tabanlı mühendislik araçlarının gerçek uçuş sistemlerine entegrasyonunda aktif rol aldım.">Otonom görüntü işleme, hedef takip, QR görevleri ve yapay zekâ tabanlı mühendislik araçlarının gerçek uçuş sistemlerine entegrasyonunda aktif rol aldım.</li>
+                    </ul>
+                </div></div>
+                <div class="timeline-item right"><div class="timeline-content">
+                    <div class="timeline-date" data-en="February - June 2026" data-tr="Şubat - Haziran 2026">Şubat - Haziran 2026</div>
+                    <h3 class="timeline-title" data-en="AI Intern" data-tr="Yapay Zekâ Stajyeri">Yapay Zekâ Stajyeri</h3>
+                    <p class="timeline-subtitle">AI Soft, Bursa</p>
+                    <ul>
+                        <li data-en="Contributed to interface and analysis functions of an AI-assisted video analytics system developed for the Tofaş production site." data-tr="Tofaş üretim sahası için geliştirilen yapay zekâ destekli video analiz sisteminin arayüz ve analiz fonksiyonlarının geliştirilmesine katkı sağladım.">Tofaş üretim sahası için geliştirilen yapay zekâ destekli video analiz sisteminin arayüz ve analiz fonksiyonlarının geliştirilmesine katkı sağladım.</li>
+                        <li data-en="Worked on human recognition and pose-estimation models and compared approaches in performance, feasibility and system integration." data-tr="İnsan tanıma ve pose estimation modelleri üzerinde çalıştım; farklı yaklaşımları performans, uygulanabilirlik ve sistem entegrasyonu açısından karşılaştırdım.">İnsan tanıma ve pose estimation modelleri üzerinde çalıştım; farklı yaklaşımları performans, uygulanabilirlik ve sistem entegrasyonu açısından karşılaştırdım.</li>
+                    </ul>
+                </div></div>
+                <div class="timeline-item left"><div class="timeline-content">
+                    <div class="timeline-date" data-en="May - July 2025" data-tr="Mayıs - Temmuz 2025">Mayıs - Temmuz 2025</div>
+                    <h3 class="timeline-title" data-en="AI Intern" data-tr="Yapay Zekâ Stajyeri">Yapay Zekâ Stajyeri</h3>
+                    <p class="timeline-subtitle" data-en="Bluesense AI, Istanbul - Remote" data-tr="Bluesense AI, İstanbul - Uzaktan">Bluesense AI, İstanbul - Uzaktan</p>
+                    <ul>
+                        <li data-en="Contributed to an AI model that estimates wrinkle level from facial images." data-tr="Yüz görüntülerinden kırışıklık seviyesini tahmin eden yapay zekâ modelinin geliştirilmesine katkı sağladım.">Yüz görüntülerinden kırışıklık seviyesini tahmin eden yapay zekâ modelinin geliştirilmesine katkı sağladım.</li>
+                        <li data-en="Worked on image preprocessing, data preparation, model training and performance evaluation." data-tr="Görüntü ön işleme, veri hazırlama, model eğitimi ve performans değerlendirme süreçlerinde görev aldım.">Görüntü ön işleme, veri hazırlama, model eğitimi ve performans değerlendirme süreçlerinde görev aldım.</li>
+                    </ul>
+                </div></div>
             </div>
         </div>
     </section>
-
-    <!-- Education Section -->
-    <section class="section education" id="education">
-        <div class="container">
-            <div class="section-title">
-                <h2 data-en="Education & Training" data-tr="Eğitim ve Öğretim">Eğitim ve Öğretim</h2>
-                <p data-en="My academic qualifications and professional development" data-tr="Akademik niteliklerim ve profesyonel gelişimim">Akademik niteliklerim ve profesyonel gelişimim</p>
-            </div>
-            <div class="education-container">
-                <div class="education-card">
-                    <div class="education-card-header">
-                        <h3 data-en="Bachelor of Computer Engineering" data-tr="Bilgisayar Mühendisliği Lisans">Bilgisayar Mühendisliği Lisans</h3>
-                    </div>
-                    <div class="education-card-body">
-                        <p data-en="Bartın University, 2021 - Present" data-tr="Bartın Üniversitesi, Eylül 2021 - Devam">Bartın Üniversitesi, Eylül 2021 - Devam</p>
-                        <p data-en="4th year undergraduate student" data-tr="4. sınıf lisans öğrencisi">4. sınıf lisans öğrencisi</p>
-                    </div>
-                </div>
-                <div class="education-card">
-                    <div class="education-card-header">
-                        <h3 data-en="Language Proficiency" data-tr="Dil Yetkinlikleri">Dil Yetkinlikleri</h3>
-                    </div>
-                    <div class="education-card-body">
-                        <p data-en="Turkish: C1 (Advanced)" data-tr="Türkçe: C1 (İleri Seviye)">Türkçe: C1 (İleri Seviye)</p>
-                        <p data-en="English: C1 (Advanced)" data-tr="İngilizce: C1 (İleri Seviye)">İngilizce: C1 (İleri Seviye)</p>
-                        <p data-en="Arabic: Native" data-tr="Arapça: Ana Dil">Arapça: Ana Dil</p>
-                    </div>
-                </div>
-                <div class="education-card">
-                    <div class="education-card-header">
-                        <h3 data-en="High School Diploma" data-tr="Lise Diploması">Lise Diploması</h3>
-                    </div>
-                    <div class="education-card-body">
-                        <p data-en="Saudi Arabian International School" data-tr="Saudi Arabian International School">Saudi Arabian International School</p>
-                        <p data-en="Islamabad, Pakistan" data-tr="İslamabad, Pakistan">İslamabad, Pakistan</p>
-                        <p data-en="Graduated with 98%" data-tr="%98 ile mezun oldu">%98 ile mezun oldu</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
+<!-- Skills Section -->
     <section class="section skills" id="skills">
         <div class="container">
-            <div class="section-title">
-                <h2 data-en="Skills & Expertise" data-tr="Beceriler ve Uzmanlık">Beceriler ve Uzmanlık</h2>
-                <p data-en="Professional competencies and technical strengths" data-tr="Profesyonel yetkinlikler ve teknik güçlü yönler">Profesyonel yetkinlikler ve teknik güçlü yönler</p>
-            </div>
+            <div class="section-title"><h2 data-en="Skills & Expertise" data-tr="Beceriler ve Uzmanlık">Beceriler ve Uzmanlık</h2><p data-en="Technologies I use across AI, computer vision and autonomous systems" data-tr="Yapay zekâ, bilgisayarlı görü ve otonom sistemlerde kullandığım teknolojiler">Yapay zekâ, bilgisayarlı görü ve otonom sistemlerde kullandığım teknolojiler</p></div>
             <div class="skills-container">
                 <div class="skill-category">
-                    <h3><i class="fas fa-brain"></i> <span data-en="Medical Image Processing" data-tr="Tıbbi Görüntü İşleme">Tıbbi Görüntü İşleme</span></h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="MRI/sMRI" data-tr="MRI/sMRI">MRI/sMRI</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Preprocessing" data-tr="Preprocessing">Preprocessing</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Skull Stripping" data-tr="Skull Stripping">Skull Stripping</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Normalization" data-tr="Normalization">Normalization</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-network-wired"></i> <span data-en="Deep Learning" data-tr="Derin Öğrenme">Derin Öğrenme</span></h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="3D CNN" data-tr="3D CNN">3D CNN</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="ResNet" data-tr="ResNet">ResNet</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="DenseNet" data-tr="DenseNet">DenseNet</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 75%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Transfer Learning" data-tr="Transfer Learning">Transfer Learning</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> <span data-en="Frameworks" data-tr="Frameworkler">Frameworkler</span></h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="PyTorch" data-tr="PyTorch">PyTorch</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 60%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="MONAI" data-tr="MONAI">MONAI</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="OpenCV" data-tr="OpenCV">OpenCV</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%"></div>
-                        </div>
-                    </div>
+                    <h3><i class="fas fa-brain"></i> <span data-en="AI / Machine Learning" data-tr="Yapay Zekâ / Makine Öğrenmesi">Yapay Zekâ / Makine Öğrenmesi</span></h3>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Machine Learning" data-tr="Makine Öğrenmesi">Makine Öğrenmesi</span></div><div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Deep Learning" data-tr="Derin Öğrenme">Derin Öğrenme</span></div><div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Transfer Learning" data-tr="Transfer Learning">Transfer Learning</span></div><div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Model Training & Evaluation" data-tr="Model Eğitimi ve Değerlendirme">Model Eğitimi ve Değerlendirme</span></div><div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Data Preprocessing" data-tr="Veri Ön İşleme">Veri Ön İşleme</span></div><div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="3D CNN" data-tr="3D CNN">3D CNN</span></div><div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div></div>
                 </div>
                 <div class="skill-category">
                     <h3><i class="fas fa-eye"></i> <span data-en="Computer Vision" data-tr="Bilgisayarlı Görü">Bilgisayarlı Görü</span></h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="YOLOv11" data-tr="YOLOv11">YOLOv11</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Pyzbar" data-tr="Pyzbar">Pyzbar</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Real-time Detection" data-tr="Real-time Detection">Real-time Detection</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 75%"></div>
-                        </div>
-                    </div>
+                    <div class="skill-item"><div class="skill-name"><span>OpenCV</span></div><div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>YOLO</span></div><div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Object Detection" data-tr="Nesne Tespiti">Nesne Tespiti</span></div><div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Object Tracking" data-tr="Nesne Takibi">Nesne Takibi</span></div><div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>ByteTrack</span></div><div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Image Processing" data-tr="Görüntü İşleme">Görüntü İşleme</span></div><div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="WeChatQRCode / QR Vision" data-tr="WeChatQRCode / QR Vision">WeChatQRCode / QR Vision</span></div><div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div></div>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-laptop-code"></i> <span data-en="Programming" data-tr="Programlama">Programlama</span></h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Python" data-tr="Python">Python</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 95%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="C++ (Qt)" data-tr="C++ (Qt)">C++ (Qt)</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Java" data-tr="Java">Java</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 70%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en=".NET MAUI" data-tr=".NET MAUI">.NET MAUI</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 65%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Node.js" data-tr="Node.js">Node.js</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 75%"></div>
-                        </div>
-                    </div>
+                    <h3><i class="fas fa-plane"></i> <span data-en="UAV / Autonomous Systems" data-tr="İHA / Otonom Sistemler">İHA / Otonom Sistemler</span></h3>
+                    <div class="skill-item"><div class="skill-name"><span>ROS Noetic</span></div><div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>ArduPilot</span></div><div class="skill-bar"><div class="skill-progress" style="width: 72%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>MAVLink / MAVROS</span></div><div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>Pixhawk</span></div><div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Ground Control Systems" data-tr="Yer Kontrol Sistemleri">Yer Kontrol Sistemleri</span></div><div class="skill-bar"><div class="skill-progress" style="width: 78%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Telemetry / RTSP" data-tr="Telemetri / RTSP">Telemetri / RTSP</span></div><div class="skill-bar"><div class="skill-progress" style="width: 72%"></div></div></div>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-tools"></i> <span data-en="Tools" data-tr="Araçlar">Araçlar</span></h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Linux" data-tr="Linux">Linux</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Git" data-tr="Git">Git</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="REST APIs" data-tr="REST APIs">REST APIs</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 75%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="WebSockets" data-tr="WebSockets">WebSockets</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 55%"></div>
-                        </div>
-                    </div>
+                    <h3><i class="fas fa-code"></i> <span data-en="Programming" data-tr="Programlama">Programlama</span></h3>
+                    <div class="skill-item"><div class="skill-name"><span>Python</span></div><div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>C++</span></div><div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>SQL</span></div><div class="skill-bar"><div class="skill-progress" style="width: 84%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>Java</span></div><div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Object-Oriented Programming" data-tr="Nesne Yönelimli Programlama">Nesne Yönelimli Programlama</span></div><div class="skill-bar"><div class="skill-progress" style="width: 76%"></div></div></div>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-users"></i> <span data-en="Soft Skills" data-tr="Kişisel/Sosyal Beceriler">Kişisel/Sosyal Beceriler</span></h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Teamwork" data-tr="Takım Çalışması">Takım Çalışması</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 95%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Leadership" data-tr="Liderlik">Liderlik</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Mentoring" data-tr="Mentorluk">Mentorluk</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Technical Communication" data-tr="Teknik İletişim">Teknik İletişim</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span data-en="Problem Solving" data-tr="Problem Çözme">Problem Çözme</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%"></div>
-                        </div>
-                    </div>
+                    <h3><i class="fas fa-database"></i> <span data-en="Generative AI / RAG" data-tr="Generative AI / RAG">Generative AI / RAG</span></h3>
+                    <div class="skill-item"><div class="skill-name"><span>Hybrid Retrieval</span></div><div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>BM25 & Multilingual E5</span></div><div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>Embeddings & Semantic Search</span></div><div class="skill-bar"><div class="skill-progress" style="width: 84%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>RRF & Cross-Encoder Reranking</span></div><div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span data-en="Ollama / Local LLM" data-tr="Ollama / Yerel LLM">Ollama / Yerel LLM</span></div><div class="skill-bar"><div class="skill-progress" style="width: 76%"></div></div></div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> <span data-en="Frameworks & Development" data-tr="Frameworkler ve Geliştirme">Frameworkler ve Geliştirme</span></h3>
+                    <div class="skill-item"><div class="skill-name"><span>PyTorch / MONAI</span></div><div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>NumPy / Pandas / Matplotlib</span></div><div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>FastAPI / REST API / JSON</span></div><div class="skill-bar"><div class="skill-progress" style="width: 84%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>Git / GitHub / Linux</span></div><div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>FFmpeg / Qt / QML</span></div><div class="skill-bar"><div class="skill-progress" style="width: 76%"></div></div></div>
                 </div>
             </div>
         </div>
     </section>
-
-    
-    <section class="section publications" id="publications">
+<!-- Education Section -->
+    <section class="section education" id="education">
         <div class="container">
             <div class="section-title">
-                <h2 data-en="Projects" data-tr="Projeler">Projeler</h2>
-                <p data-en="Healthcare AI, aerospace software, and ML solutions" data-tr="Sağlık AI'ı, havacılık yazılımı ve ML çözümleri">Sağlık AI'ı, havacılık yazılımı ve ML çözümleri</p>
+                <h2 data-en="Education" data-tr="Eğitim">Eğitim</h2>
+                <p data-en="My academic background" data-tr="Akademik geçmişim">Akademik geçmişim</p>
             </div>
-            <div class="publications-container">
-                <div class="publication-card">
-                    <div class="publication-content">
-                        <h3 data-en="Early Alzheimer's Detection - MRI & Deep Learning" data-tr="MRI ve Derin Öğrenme ile Erken Alzheimer Tespiti
-                        ">MRI ve Derin Öğrenme ile Erken Alzheimer Tespiti                        </h3>
-                        <div class="publication-meta">
-                            <span>Python | PyTorch | MONAI</span>
-                        </div>
-                        <p class="publication-description" data-en="Early-stage Alzheimer's classification using 3D CNN (ResNet-18 & ResNet-101) on ADNI sMRI dataset. Preprocessing, transfer learning, XAI integration, and GUI development." data-tr="3D CNN (ResNet-18 & ResNet-101) ile ADNI sMRI veri setinde Alzheimer erken teşhisi. Preprocessing, transfer learning, XAI entegrasyonu ve GUI geliştirme.">3D CNN (ResNet-18 & ResNet-101) ile ADNI sMRI veri setinde Alzheimer erken teşhisi. Preprocessing, transfer learning, XAI entegrasyonu ve GUI geliştirme.</p>
-                    </div>
-                </div>
-
-                <div class="publication-card">
-                    <div class="publication-content">
-                        <h3 data-en="Ground Control Station - TEKNOFEST 2025" data-tr="Yer Kontrol İstasyonu - TEKNOFEST 2025">Yer Kontrol İstasyonu - TEKNOFEST 2025</h3>
-                        <div class="publication-meta">
-                            <span>C++ | Qt</span>
-                        </div>
-                        <p class="publication-description" data-en="Ground Control Station software capable of controlling 27 UAVs simultaneously. Modular backend architecture, real-time data processing, and UI design." data-tr="27 İHA'yı eşzamanlı kontrol edebilen Ground Control Station yazılımı. Modüler backend mimarisi, gerçek zamanlı veri işleme ve kullanıcı arayüzü tasarımı.">27 İHA'yı eşzamanlı kontrol edebilen Ground Control Station yazılımı. Modüler backend mimarisi, gerçek zamanlı veri işleme ve kullanıcı arayüzü tasarımı.</p>
-                    </div>
-                </div>
-
-                <div class="publication-card">
-                    <div class="publication-content">
-                        <h3 data-en="Autonomous Dive UAV Software - TEKNOFEST 2025" data-tr="Otonom Dalış İHA Yazılımı - TEKNOFEST 2025">Otonom Dalış İHA Yazılımı - TEKNOFEST 2025</h3>
-                        <div class="publication-meta">
-                            <span>C++ | OpenCV | Pyzbar | ArduPilot</span>
-                        </div>
-                        <p class="publication-description" data-en="Autonomous drone software for QR code detection and dive-based locking missions. Real-time image processing and MAVROS integration." data-tr="QR kod tespiti ve dalış tabanlı kilitlenme için otonom drone yazılımı. Gerçek zamanlı görüntü işleme ve MAVROS entegrasyonu.">QR kod tespiti ve dalış tabanlı kilitlenme için otonom drone yazılımı. Gerçek zamanlı görüntü işleme ve MAVROS entegrasyonu.</p>
-                    </div>
-                </div>
-
-                <div class="publication-card">
-                    <div class="publication-content">
-                        <h3 data-en="Earthquake Magnitude Prediction - Machine Learning" data-tr="Deprem Büyüklüğü Tahmini - Machine Learning">Deprem Büyüklüğü Tahmini - Machine Learning</h3>
-                        <div class="publication-meta">
-                            <span>Python | Pandas | Scikit-learn | Seaborn | Matplotlib | SMOTE | pgmpy</span>
-                        </div>
-                        <p class="publication-description" data-en="Three ML models using 2000-2025 Marmara earthquake data. Random Forest (86.46%), Decision Tree (83.29%), and Bayesian Network predictions. Data balancing, preprocessing, and model comparison. Team of 3." data-tr="2000-2025 Marmara deprem verileriyle 3 farklı ML modeli. Random Forest (%86.46), Decision Tree (%83.29) ve Bayesian Network ile tahmin. Veri dengeleme, preprocessing ve model karşılaştırması. 3 kişilik ekip projesi.">2000-2025 Marmara deprem verileriyle 3 farklı ML modeli. Random Forest (%86.46), Decision Tree (%83.29) ve Bayesian Network ile tahmin. Veri dengeleme, preprocessing ve model karşılaştırması. 3 kişilik ekip projesi.</p>
-                    </div>
-                </div>
-
-                <div class="publication-card">
-                    <div class="publication-content">
-                        <h3 data-en="Real-Time Messaging Web App (WhatsApp Clone)" data-tr="Real-Time Mesajlaşma Uygulaması (WhatsApp Clone)">Real-Time Mesajlaşma Uygulaması (WhatsApp Clone)</h3>
-                        <div class="publication-meta">
-                            <span>Node.js | WebSockets | JavaScript</span>
-                        </div>
-                        <p class="publication-description" data-en="Real-time messaging and calling platform. Dynamic frontend with audio/video features. Team of 3." data-tr="Gerçek zamanlı mesajlaşma ve arama platformu. Dinamik frontend, ses/video özellikleri. 3 kişilik ekip projesi.">Gerçek zamanlı mesajlaşma ve arama platformu. Dinamik frontend, ses/video özellikleri. 3 kişilik ekip projesi.</p>
-                    </div>
-                </div>
-
-                <div class="publication-card">
-                    <div class="publication-content">
-                        <h3 data-en="Brain Tumor Classification - MRI" data-tr="Beyin Tümörü Sınıflandırma - MRI">Beyin Tümörü Sınıflandırma - MRI</h3>
-                        <div class="publication-meta">
-                            <span>Python | Pandas </span>
-                        </div>
-                        <p class="publication-description" data-en="Rebuilt open-source model for MRI tumor classification on CPU. Medical image processing and model optimization experience." data-tr="Açık kaynak modelini yeniden kurarak CPU üzerinde MRI tümör sınıflandırması. Medikal görüntü işleme ve model optimizasyonu deneyimi.">Açık kaynak modelini yeniden kurarak CPU üzerinde MRI tümör sınıflandırması. Medikal görüntü işleme ve model optimizasyonu deneyimi.</p>
-                    </div>
-                </div>
+            <div class="education-container">
+                <div class="education-card"><div class="education-card-header"><h3 data-en="M.Sc. in Computer Engineering" data-tr="Bilgisayar Mühendisliği Yüksek Lisans">Bilgisayar Mühendisliği Yüksek Lisans</h3></div><div class="education-card-body"><p data-en="Kocaeli University, 2026 - Present" data-tr="Kocaeli Üniversitesi, 2026 - Devam Ediyor">Kocaeli Üniversitesi, 2026 - Devam Ediyor</p><p data-en="Focus: Artificial Intelligence and Autonomous Systems" data-tr="Odak: Yapay Zekâ ve Otonom Sistemler">Odak: Yapay Zekâ ve Otonom Sistemler</p></div></div>
+                <div class="education-card"><div class="education-card-header"><h3 data-en="B.Sc. in Computer Engineering" data-tr="Bilgisayar Mühendisliği Lisans">Bilgisayar Mühendisliği Lisans</h3></div><div class="education-card-body"><p data-en="Bartın University, 2022 - 2026" data-tr="Bartın Üniversitesi, 2022 - 2026">Bartın Üniversitesi, 2022 - 2026</p><p data-en="GPA: 3.10/4.00 · Graduated with Honors" data-tr="GNO: 3.10/4.00 · Onur Derecesi ile Mezuniyet">GNO: 3.10/4.00 · Onur Derecesi ile Mezuniyet</p></div></div>
+                <div class="education-card"><div class="education-card-header"><h3 data-en="High School" data-tr="Lise">Lise</h3></div><div class="education-card-body"><p>Saudi Secondary School in Islamabad</p><p data-en="Science · 99/100 · Valedictorian" data-tr="Fen Bilimleri · 99/100 · Okul Birincisi">Fen Bilimleri · 99/100 · Okul Birincisi</p></div></div>
             </div>
         </div>
     </section>
-    
-    <!-- Projects Section -->
-    <section class="section publications" id="publications">
+<!-- Publication Section -->
+    <section class="section publications" id="research">
         <div class="container">
-            <div class="section-title">
-                 <h2 data-en="Featured" data-tr="Öne Çıkanlar">Öne Çıkanlar</h2>
- <p
-        data-en="Beyond projects; moments that left a mark"
-        data-tr="Projelerin ötesinde; iz bırakan anlar"
-      >
-        Projelerin ötesinde; iz bırakan anlar
-      </p>     </div>
+            <div class="section-title"><h2 data-en="Publication" data-tr="Yayın">Yayın</h2><p data-en="Research work emerging from my medical-AI project" data-tr="Medikal yapay zekâ projemden doğan akademik çalışma">Medikal yapay zekâ projemden doğan akademik çalışma</p></div>
             <div class="publications-container">
-                <div class="publication-card">
-                    <img src="tunga.png" alt="Team Collaboration" class="publication-img">
-                    <div class="publication-content">
-                        <h3 data-en="Team Collaboration" data-tr="Takım Çalışması">Takım Çalışması</h3>
-                        <p class="publication-description" data-en="Writing code for a system capable of controlling 27 UAVs simultaneously with my teammates." data-tr="27 İHA'yı aynı anda kontrol edebilen sistemin kodunu yazarken ekip arkadaşlarımla.">27 İHA'yı aynı anda kontrol edebilen sistemin kodunu yazarken ekip arkadaşlarımla.</p>
-                    </div>
-                </div>
-                <div class="publication-card">
-                    <img src="savasan.png" alt="TEKNOFEST Finalist Team" class="publication-img">
-                    <div class="publication-content">
-                        <h3 data-en="TEKNOFEST Finalist Team" data-tr="TEKNOFEST Finalist Ekibi">TEKNOFEST Finalist Ekibi</h3>
-                        <p class="publication-description" data-en="Competing in the finals against hundreds of teams from all across Turkey." data-tr="Türkiye'nin dört bir yanından gelen yüzlerce takımla yarıştığımız finalde.">Türkiye'nin dört bir yanından gelen yüzlerce takımla yarıştığımız finalde.</p>
-                    </div>
-                </div>
-                <div class="publication-card">
-                    <img src="sunum.png" alt="Technical Leadership" class="publication-img">
-                    <div class="publication-content">
-                        <h3 data-en="Technical Leadership" data-tr="Teknik Liderlik">Teknik Liderlik</h3>
-                        <p class="publication-description" data-en="Sharing my experience with the next generation of engineers." data-tr="Bir sonraki nesil mühendislere deneyimlerimi aktarırken.">Bir sonraki nesil mühendislere deneyimlerimi aktarırken.</p>
-                    </div>
-                </div>
+                <div class="publication-card"><div class="publication-content"><h3>Distinguishing CN from MCI Using 3D Structural MRI and Deep Learning in Individuals with High MMSE Scores: A Clinical Decision Support Approach for Early-Stage Alzheimer’s Assessment</h3><div class="publication-meta"><span data-en="First Author | Journal of Medical Systems | Under Review, 2026" data-tr="İlk Yazar | Journal of Medical Systems | Değerlendirme Sürecinde, 2026">İlk Yazar | Journal of Medical Systems | Değerlendirme Sürecinde, 2026</span></div><p class="publication-description" data-en="A research manuscript based on my early-stage Alzheimer MRI classification project, focusing on differentiating cognitively normal individuals from MCI cases in high-MMSE populations." data-tr="Erken evre Alzheimer MRI sınıflandırma projemden geliştirilen; yüksek MMSE skorlarına sahip bireylerde bilişsel olarak normal kişiler ile MCI vakalarının ayrımına odaklanan akademik çalışma.">Erken evre Alzheimer MRI sınıflandırma projemden geliştirilen; yüksek MMSE skorlarına sahip bireylerde bilişsel olarak normal kişiler ile MCI vakalarının ayrımına odaklanan akademik çalışma.</p></div></div>
             </div>
         </div>
     </section>
-
-   
-
-    <!-- Contact Section -->
+<!-- Contact Section -->
     <section class="section contact" id="contact">
         <div class="container">
           <div class="section-title">
             <h2 data-en="Contact Me" data-tr="İletişim">İletişim</h2>
-            <p data-en="Get in touch for collaborations and opportunities" data-tr="İşbirlikleri ve fırsatlar için iletişime geçin">İşbirlikleri ve fırsatlar için iletişime geçin</p>
+            <p data-en="Feel free to get in touch for new ideas, projects, and professional connections." data-tr="Yeni fikirler, projeler ve profesyonel bağlantılar için iletişime geçebilirsiniz.">Yeni fikirler, projeler ve profesyonel bağlantılar için iletişime geçebilirsiniz.</p>
           </div>
-      
-          <!-- iki sütun düzeni: solda metin, sağda beyaz kart -->
           <div class="contact-container" style="display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:start;">
-      
-            <!-- SOL SÜTUN: METİNLER (AYNEN KALDI) -->
             <div class="contact-info">
-              <h3 data-en="Let's Connect for Research and Development" data-tr="Araştırma ve Geliştirme İçin İletişime Geçelim">Araştırma ve Geliştirme İçin İletişime Geçelim</h3>
-      
-              <p data-en="I am actively seeking opportunities to apply my skills in medical image processing, artificial intelligence, and aerospace software. If you represent a research institution, healthcare technology company, aviation/defense industry firm, or UAV systems company, I would be delighted to discuss potential collaborations, internship opportunities, or project partnerships." data-tr="Tıbbi görüntü işleme, yapay zeka ve havacılık yazılımları alanındaki becerilerimi uygulayabileceğim fırsatlar arıyorum. Bir araştırma kurumu, sağlık teknolojisi şirketi, havacılık/savunma sanayi firması veya UAV sistemleri şirketini temsil ediyorsanız, potansiyel işbirlikleri, staj fırsatları veya proje ortaklıkları hakkında görüşmekten memnuniyet duyarım.">Tıbbi görüntü işleme, yapay zeka ve havacılık yazılımları alanındaki becerilerimi uygulayabileceğim fırsatlar arıyorum. Bir araştırma kurumu, sağlık teknolojisi şirketi, havacılık/savunma sanayi firması veya UAV sistemleri şirketini temsil ediyorsanız, potansiyel işbirlikleri, staj fırsatları veya proje ortaklıkları hakkında görüşmekten memnuniyet duyarım.</p>
-      
+              <h3 data-en="Let's Connect for New Opportunities" data-tr="Yeni Fırsatlar İçin İletişime Geçelim">Yeni Fırsatlar İçin İletişime Geçelim</h3>
+              <p data-en="I work across artificial intelligence, computer vision, and autonomous systems, developing end-to-end software solutions designed for real-world applications. I am open to new professional opportunities where I can expand my technical expertise, take responsibility, and contribute to strong engineering teams." data-tr="Yapay zekâ, bilgisayarlı görü ve otonom sistemler odağında; gerçek problemlere uygulanabilen, uçtan uca yazılım çözümleri geliştiriyorum. Teknik bilgi birikimimi geliştirebileceğim, sorumluluk alabileceğim ve güçlü ekiplerle birlikte üretim yapabileceğim yeni profesyonel fırsatlara açığım.">Yapay zekâ, bilgisayarlı görü ve otonom sistemler odağında; gerçek problemlere uygulanabilen, uçtan uca yazılım çözümleri geliştiriyorum. Teknik bilgi birikimimi geliştirebileceğim, sorumluluk alabileceğim ve güçlü ekiplerle birlikte üretim yapabileceğim yeni profesyonel fırsatlara açığım.</p>
               <ul class="contact-interests">
-                <li data-en="MRI-based disease detection systems and deep learning models" data-tr="MRI tabanlı hastalık teşhis sistemleri ve derin öğrenme modelleri">MRI tabanlı hastalık teşhis sistemleri ve derin öğrenme modelleri</li>
-                <li data-en="UAV software, ground control stations, and autonomous systems" data-tr="UAV yazılımları, yer kontrol istasyonları ve otonom sistemler">UAV yazılımları, yer kontrol istasyonları ve otonom sistemler</li>
-                <li data-en="Medical AI research projects" data-tr="Medikal AI araştırma projeleri">Medikal AI araştırma projeleri</li>
-                <li data-en="Aviation and defense technology software development" data-tr="Havacılık ve savunma teknolojileri yazılım geliştirme">Havacılık ve savunma teknolojileri yazılım geliştirme</li>
+                <li data-en="AI and deep learning model development" data-tr="Yapay zekâ ve derin öğrenme tabanlı model geliştirme">Yapay zekâ ve derin öğrenme tabanlı model geliştirme</li>
+                <li data-en="2D/3D image processing, computer vision, and 3D CNN systems" data-tr="2D/3D görüntü işleme, bilgisayarlı görü ve 3D CNN sistemleri">2D/3D görüntü işleme, bilgisayarlı görü ve 3D CNN sistemleri</li>
+                <li data-en="Autonomous systems, perception, and decision-support software" data-tr="Otonom sistemler, algı ve karar destek yazılımları">Otonom sistemler, algı ve karar destek yazılımları</li>
+                <li data-en="RAG, local LLMs, and AI-powered information retrieval systems" data-tr="RAG, yerel LLM ve yapay zekâ tabanlı bilgi erişim sistemleri">RAG, yerel LLM ve yapay zekâ tabanlı bilgi erişim sistemleri</li>
+                <li data-en="Software development, system integration, and real-world deployment" data-tr="Yazılım geliştirme, sistem entegrasyonu ve gerçek ortam uygulamaları">Yazılım geliştirme, sistem entegrasyonu ve gerçek ortam uygulamaları</li>
               </ul>
-      
-              <!-- soldaki eski contact-details'ı kaldırdık/yorumladık -->
-              <!--
-              <div class="contact-details"> ... </div>
-              -->
             </div>
-      <style>
-  /* İletişim bölümündeki tüm linkler için tek renk */
-  .section.contact a,
-  .section.contact a:visited,
-  .section.contact a:hover,
-  .section.contact a:focus,
-  .section.contact a:active {
-    color: #0D47A1;           /* istediğin rengi yaz */
-    text-decoration: none;    /* alt çizgisiz */
-  }
-
-  /* Hover/focus'ta istersen alt çizgi verelim */
-  .section.contact a:hover,
-  .section.contact a:focus {
-    text-decoration: underline;
-  }
-
- 
-</style>
-
-            <!-- SAĞ SÜTUN: BEYAZ KARTTA İLETİŞİM -->
+            <style>
+              .section.contact a,
+              .section.contact a:visited,
+              .section.contact a:hover,
+              .section.contact a:focus,
+              .section.contact a:active { color: #0D47A1; text-decoration: none; }
+              .section.contact a:hover,
+              .section.contact a:focus { text-decoration: underline; }
+            </style>
             <div class="contact-form">
                 <div id="researchForm" class="form-card" style="background:#fff;border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.08);">
-              
                   <div class="contact-item" style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.06);">
                     <i class="fas fa-phone" style="width:28px;text-align:center;font-size:18px;opacity:.8;"></i>
                     <a href="tel:+905357427400">+90 535 742 74 00</a>
                   </div>
-              
                   <div class="contact-item" style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.06);">
                     <i class="fas fa-envelope" style="width:28px;text-align:center;font-size:18px;opacity:.8;"></i>
                     <a href="mailto:netbochra@gmail.com">netbochra@gmail.com</a>
                   </div>
-              
-                  <!-- DÜZELTİLEN KONUM SATIRI -->
-                  <a class="contact-item location"
-                     href="https://www.google.com/maps/search/?api=1&query=Bart%C4%B1n%2C%20T%C3%BCrkiye"
-                     target="_blank" rel="noopener"
-                     aria-label="Haritada Bartın, Türkiye aç"
-                     style="display:flex;align-items:center;gap:12px;padding:12px 0;">
+                  <a class="contact-item location" href="https://www.google.com/maps/search/?api=1&query=%C4%B0zmit%2C%20Kocaeli%2C%20T%C3%BCrkiye" target="_blank" rel="noopener" aria-label="Haritada İzmit, Kocaeli aç" style="display:flex;align-items:center;gap:12px;padding:12px 0;">
                     <i class="fas fa-map-marker-alt" style="width:28px;text-align:center;font-size:18px;opacity:.8;"></i>
-                    <span data-en="Bartın, Turkey" data-tr="Bartın, Türkiye">Bartın, Türkiye</span>
+                    <span data-en="Izmit, Kocaeli" data-tr="İzmit, Kocaeli">İzmit, Kocaeli</span>
                   </a>
-              
                 </div>
-              </div>
-            
-            <!-- /SAĞ -->
+            </div>
           </div>
         </div>
-      </section>
+    </section>
+
+
+      
       
       <!-- Footer (tam genişlik) -->
       <footer style="background:#432826;color:#fff;">
@@ -694,13 +460,13 @@
           <div class="footer-container">
             <div class="footer-col">
               <h4 data-en="Bochra Nettour" data-tr="Bochra Nettour">Bochra Nettour</h4>
-              <p data-en="Computer Engineering Student, AI Researcher & UAV Systems Developer" 
-                 data-tr="Bilgisayar Mühendisliği Öğrencisi, Yapay Zeka Araştırmacısı ve İHA Sistemleri Geliştiricisi">
-                 Bilgisayar Mühendisliği Öğrencisi, Yapay Zeka Araştırmacısı ve İHA Sistemleri Geliştiricisi
+              <p data-en="Computer Engineer, AI & Autonomous Systems Developer" 
+                 data-tr="Bilgisayar Mühendisi, Yapay Zekâ ve Otonom Sistemler Geliştiricisi">
+                 Bilgisayar Mühendisi, Yapay Zekâ ve Otonom Sistemler Geliştiricisi
               </p>
-              <p data-en="Developing AI solutions in healthcare technology and aerospace systems to make a meaningful impact on people's lives" 
-                 data-tr="Sağlık teknolojileri ve havacılık sistemlerinde yapay zeka çözümleri geliştirerek insanların hayatına dokunmaya çalışıyorum">
-                 Sağlık teknolojileri ve havacılık sistemlerinde yapay zeka çözümleri geliştirerek insanların hayatına dokunmaya çalışıyorum
+              <p data-en="I develop work in artificial intelligence, computer vision, and autonomous systems, bridging research with real-world applications." 
+                 data-tr="Yapay zekâ, bilgisayarlı görü ve otonom sistemler alanında araştırmadan gerçek dünya uygulamalarına uzanan çalışmalar geliştiriyorum.">
+                 Yapay zekâ, bilgisayarlı görü ve otonom sistemler alanında araştırmadan gerçek dünya uygulamalarına uzanan çalışmalar geliştiriyorum.
               </p>
               <div class="social-links">
                 <a href="https://linkedin.com/in/bochra-nettour-a16077361/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
@@ -709,7 +475,7 @@
             </div>
           </div>
           <div class="copyright" style="border-top:1px solid rgba(255,255,255,.15);margin-top:24px;padding-top:16px;text-align:center;opacity:.9;">
-            <p data-en="© 2025 Bochra Nettour. All Rights Reserved." data-tr="© 2025 Bochra Nettour. Tüm Hakları Saklıdır.">© 2025 Bochra Nettour. Tüm Hakları Saklıdır.</p>
+            <p data-en="© 2026 Bochra Nettour. All Rights Reserved." data-tr="© 2026 Bochra Nettour. Tüm Hakları Saklıdır.">© 2026 Bochra Nettour. Tüm Hakları Saklıdır.</p>
           </div>
         </div>
       </footer>
@@ -814,14 +580,48 @@
         function animateSkillBars() {
             skillBars.forEach(bar => {
                 const barTop = bar.getBoundingClientRect().top;
-                if (barTop < window.innerHeight - 100) {
-                    bar.style.width = bar.parentElement.previousElementSibling.lastElementChild.textContent;
+                if (barTop < window.innerHeight - 100 && !bar.dataset.animated) {
+                    const targetWidth = bar.style.width;
+                    bar.dataset.animated = 'true';
+                    bar.style.width = '0';
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        bar.style.width = targetWidth;
+                    }));
                 }
             });
         }
         
         window.addEventListener('scroll', animateSkillBars);
         
+
+
+        // Featured carousel
+        const featuredTrack = document.getElementById('featuredTrack');
+        const featuredPrev = document.getElementById('featuredPrev');
+        const featuredNext = document.getElementById('featuredNext');
+
+        function featuredStep() {
+            if (!featuredTrack) return 0;
+            const card = featuredTrack.querySelector('.publication-card');
+            if (!card) return 0;
+            const gap = parseFloat(getComputedStyle(featuredTrack).gap) || 24;
+            return card.getBoundingClientRect().width + gap;
+        }
+
+        function updateFeaturedButtons() {
+            if (!featuredTrack || !featuredPrev || !featuredNext) return;
+            const maxScroll = featuredTrack.scrollWidth - featuredTrack.clientWidth;
+            featuredPrev.disabled = featuredTrack.scrollLeft <= 4;
+            featuredNext.disabled = featuredTrack.scrollLeft >= maxScroll - 4;
+        }
+
+        if (featuredTrack && featuredPrev && featuredNext) {
+            featuredPrev.addEventListener('click', () => featuredTrack.scrollBy({ left: -featuredStep(), behavior: 'smooth' }));
+            featuredNext.addEventListener('click', () => featuredTrack.scrollBy({ left: featuredStep(), behavior: 'smooth' }));
+            featuredTrack.addEventListener('scroll', updateFeaturedButtons, { passive: true });
+            window.addEventListener('resize', updateFeaturedButtons);
+            updateFeaturedButtons();
+        }
 
         // Form Submission
 
